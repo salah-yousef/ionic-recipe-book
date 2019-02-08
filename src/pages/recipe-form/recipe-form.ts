@@ -13,6 +13,8 @@ export class RecipeFormPage implements OnInit{
   mode: string = 'new';
   options: string[] = ['Easy', 'Meduim', 'Hard'];
   recipeForm: FormGroup;
+  recipe: Recipe;
+  index: number;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -24,23 +26,28 @@ export class RecipeFormPage implements OnInit{
   }
 
   ngOnInit(): void {
+    this.mode = this.navParams.data.mode;
+    if (this.mode === 'edit') {
+      this.recipe = this.navParams.get('recipe');
+      this.index = this.navParams.get('index');
+    }
     this.initForm();
   }
   
-  ionViewWillEnter() {
-    this.mode = this.navParams.data.mode;
-  }
-
   onSubmit() {
     const formValue: Recipe = this.recipeForm.value;
     let ingredients = [];
     if (formValue.ingredients.length > 0) {
       ingredients = formValue.ingredients.map(name => {
-        return {name: name, amout: 1};
+        return {name: name, amount: 1};
       });
     }
     formValue.ingredients = ingredients;
-    this.recipesProvider.addRecipe(formValue);
+    if (this.mode === "new") {
+      this.recipesProvider.addRecipe(formValue);
+    } else {
+      this.recipesProvider.updateRecipe(this.index, formValue)
+    }
 
     this.recipeForm.reset();
     this.navCtrl.popToRoot();
@@ -128,11 +135,25 @@ export class RecipeFormPage implements OnInit{
   }
 
   private initForm() {
+    let title = null;
+    let description = null;
+    let difficulty = this.options[1];
+    let ingredients = [];
+
+    if (this.mode === 'edit') {
+      title = this.recipe.title;
+      description = this.recipe.description;
+      difficulty = this.recipe.difficulty;
+      for (const ingredient of this.recipe.ingredients) {
+        ingredients.push(new FormControl(ingredient.name, Validators.required));
+      }
+    }
+
     this.recipeForm = new FormGroup({
-      title: new FormControl(null, Validators.required),
-      description: new FormControl(null, Validators.required),
-      difficulty: new FormControl(this.options[1], Validators.required),
-      ingredients: new FormArray([])
+      title: new FormControl(title, Validators.required),
+      description: new FormControl(description, Validators.required),
+      difficulty: new FormControl(difficulty, Validators.required),
+      ingredients: new FormArray(ingredients)
     });
   }
 
