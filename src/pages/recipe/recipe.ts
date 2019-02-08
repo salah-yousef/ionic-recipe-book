@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Recipe } from '../../models/recipe.model';
 
 /**
  * Generated class for the RecipePage page.
@@ -14,12 +15,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'recipe.html',
 })
 export class RecipePage {
-
+  recipe: Recipe;
+  index: number;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RecipePage');
+  ionViewWillEnter() {
+    this.recipe = this.navParams.get('recipe');
+    this.index = this.navParams.get('index');    
   }
+
+
 
 }

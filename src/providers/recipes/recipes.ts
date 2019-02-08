@@ -9,7 +9,7 @@ import { Recipe } from "../../models/recipe.model";
 */
 @Injectable()
 export class RecipesProvider {
-  private recipes: Recipe[];
+  recipes: Recipe[] = [];
 
   addRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
@@ -18,7 +18,7 @@ export class RecipesProvider {
   }
 
   getRecipes() {
-    return this.recipes.slice();
+      return this.recipes.slice();
   }
 
   updateRecipe(index:number, recipe: Recipe) {

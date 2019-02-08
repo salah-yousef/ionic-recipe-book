@@ -22,7 +22,7 @@
         </ion-select>
       </ion-item>
     </ion-list>
-    <button ion-button clear block (click)="onManageIngredients()">Manage Ingredients</button>
+    <button ion-button type="button" clear block (click)="onManageIngredients()">Manage Ingredients</button>
     <ion-list formArrayName="ingredients">
       <ion-item *ngFor="let ingredientControl of recipeForm.get('ingredients').controls; let i = index">
         <ion-label floating>Name</ion-label>
