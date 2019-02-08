@@ -8,6 +8,9 @@ import { MyApp } from './app.component';
 import { TabsPageModule } from '../pages/tabs/tabs.module';
 import { ShoppingListPageModule } from '../pages/shopping-list/shopping-list.module';
 import { RecipesPageModule } from '../pages/recipes/recipes.module';
+import { ShoppingListProvider } from '../providers/shopping-list/shopping-list';
+import { RecipeFormPageModule } from '../pages/recipe-form/recipe-form.module';
+import { RecipesProvider } from '../providers/recipes/recipes';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,7 @@ import { RecipesPageModule } from '../pages/recipes/recipes.module';
     TabsPageModule,
     ShoppingListPageModule,
     RecipesPageModule,
+    RecipeFormPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -27,7 +31,9 @@ import { RecipesPageModule } from '../pages/recipes/recipes.module';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ShoppingListProvider,
+    RecipesProvider
   ]
 })
 export class AppModule {}
