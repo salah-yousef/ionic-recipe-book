@@ -12,6 +12,8 @@ import { ShoppingListProvider } from '../providers/shopping-list/shopping-list';
 import { RecipeFormPageModule } from '../pages/recipe-form/recipe-form.module';
 import { RecipesProvider } from '../providers/recipes/recipes';
 import { RecipePageModule } from '../pages/recipe/recipe.module';
+import { SigninPageModule } from '../pages/signin/signin.module';
+import { SignupPageModule } from '../pages/signup/signup.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { RecipePageModule } from '../pages/recipe/recipe.module';
     RecipesPageModule,
     RecipeFormPageModule,
     RecipePageModule,
+    SigninPageModule,
+    SignupPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
