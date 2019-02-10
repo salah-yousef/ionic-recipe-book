@@ -1,14 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Ingredient } from '../../models/ingredient.model';
 import { ShoppingListProvider } from '../../providers/shopping-list/shopping-list';
-
-/**
- * Generated class for the ShoppingListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { OptionsPage } from './options/options';
+import { AuthProvider } from '../../providers/auth/auth';
 
 @IonicPage()
 @Component({
@@ -21,7 +16,9 @@ export class ShoppingListPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    private shListProvider:ShoppingListProvider
+    private shListProvider:ShoppingListProvider,
+    private popoverCtrl:PopoverController,
+    private authProvider:AuthProvider
     ) {
   }
 
@@ -40,6 +37,31 @@ export class ShoppingListPage {
   onDelete(index: number) {
     this.shListProvider.removeIngredient(index);
     this.ingredients = this.shListProvider.getIngredients();
+  }
+
+  onShowOptions(event: MouseEvent) {
+    const popover = this.popoverCtrl.create(OptionsPage);
+    popover.present({ev: event});
+    popover.onDidDismiss((action) => {
+      if (action === 'load') {
+        
+      } else {
+        this.authProvider.getActiveUser().getIdToken()
+          .then( (token: string)=> {
+           this.shListProvider.storeList(token)
+            .subscribe(
+              () => {
+                console.log('success');
+              },
+              (error) => {
+                console.error(error);
+              }
+            ) 
+          }
+          )
+          .catch();
+      }
+    });
   }
 
 }

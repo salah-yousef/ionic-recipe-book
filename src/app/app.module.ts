@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from "@angular/common/http";
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -14,12 +15,15 @@ import { RecipesProvider } from '../providers/recipes/recipes';
 import { RecipePageModule } from '../pages/recipe/recipe.module';
 import { SigninPageModule } from '../pages/signin/signin.module';
 import { SignupPageModule } from '../pages/signup/signup.module';
+import { AuthProvider } from '../providers/auth/auth';
+import { OptionsPageModule } from '../pages/shopping-list/options/options.module';
 
 @NgModule({
   declarations: [
     MyApp
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     TabsPageModule,
     ShoppingListPageModule,
@@ -28,6 +32,7 @@ import { SignupPageModule } from '../pages/signup/signup.module';
     RecipePageModule,
     SigninPageModule,
     SignupPageModule,
+    OptionsPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -39,7 +44,8 @@ import { SignupPageModule } from '../pages/signup/signup.module';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ShoppingListProvider,
-    RecipesProvider
+    RecipesProvider,
+    AuthProvider
   ]
 })
 export class AppModule {}
