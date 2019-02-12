@@ -17,6 +17,7 @@ import { SigninPageModule } from '../pages/signin/signin.module';
 import { SignupPageModule } from '../pages/signup/signup.module';
 import { AuthProvider } from '../providers/auth/auth';
 import { OptionsPageModule } from '../pages/shopping-list/options/options.module';
+import { RecipesOptionsPageModule } from '../pages/recipes/recipes-options/recipes-options.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { OptionsPageModule } from '../pages/shopping-list/options/options.module
     SigninPageModule,
     SignupPageModule,
     OptionsPageModule,
+    RecipesOptionsPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

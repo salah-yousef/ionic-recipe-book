@@ -37,4 +37,9 @@ export class ShoppingListProvider {
     return this.http.put(`https://ionic3-recipe-book-87e6d.firebaseio.com/${userId}/shopping-list.json?auth=${token}`, this.ingredients);
   }
 
+  fetchList(token: string) {
+    const userId = this.authProvider.getActiveUser().uid;
+    return this.http.get(`https://ionic3-recipe-book-87e6d.firebaseio.com/${userId}/shopping-list.json?auth=${token}`);
+  }
+
 }
